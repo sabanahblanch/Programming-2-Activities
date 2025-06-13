@@ -1,0 +1,115 @@
+using System;
+
+public struct Time
+{
+    private readonly int minutes;
+
+    public Time(int hh, int mm)
+    {
+        this.minutes = 60 * hh + mm;
+    }
+
+    public Time(int totalMinutes)
+    {
+        this.minutes = totalMinutes;
+    }
+
+    public int Hour
+    {
+        get { return minutes / 60; }
+    }
+
+    public int Minute
+    {
+        get { return minutes % 60; }
+    }
+
+    public override String ToString()
+    {
+        return String.Format("{0:D2}:{1:D2}", Hour, Minute);
+    }
+
+    public static Time operator +(Time t1, Time t2)
+    {
+        return new Time(t1.minutes + t2.minutes);
+    }
+
+    public static Time operator -(Time t1, Time t2)
+    {
+        return new Time(t1.minutes - t2.minutes);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("=== TestTime Program ===");
+        Console.WriteLine("Demonstrating Time struct with Hour and Minute properties\n");
+
+        Console.WriteLine("Declaring variables of type Time:");
+        Console.WriteLine("Time time1 = new Time(10, 5);   // 10:05 AM");
+        Console.WriteLine("Time time2 = new Time(0, 45);   // 00:45 (12:45 AM)");
+        Console.WriteLine("Time time3 = new Time(14, 30);  // 14:30 (2:30 PM)");
+        Console.WriteLine("Time time4 = new Time(23, 59);  // 23:59 (11:59 PM)");
+        Console.WriteLine("Time time5 = new Time(23, 45);  // 23:45 (11:45 PM)");
+        Console.WriteLine();
+
+        Time time1 = new Time(10, 5);   // 10:05 AM
+        Time time2 = new Time(0, 45);   // 00:45 (12:45 AM)
+        Time time3 = new Time(14, 30);  // 14:30 (2:30 PM)
+        Time time4 = new Time(23, 59);  // 23:59 (11:59 PM)
+        Time time5 = new Time(23, 45);  // 23:45 (11:45 PM) - Example from requirements
+
+        Console.WriteLine("Time values displayed in hh:mm format:");
+        Console.WriteLine("time1: " + time1);
+        Console.WriteLine("time2: " + time2);
+        Console.WriteLine("time3: " + time3);
+        Console.WriteLine("time4: " + time4);
+        Console.WriteLine("time5: " + time5);
+
+        Console.WriteLine("\nDemonstrating Hour and Minute properties:");
+        Console.WriteLine("time5 (23:45) - Hour: " + time5.Hour + ", Minute: " + time5.Minute);
+        Console.WriteLine("time1 (10:05) - Hour: " + time1.Hour + ", Minute: " + time1.Minute);
+        Console.WriteLine("time2 (00:45) - Hour: " + time2.Hour + ", Minute: " + time2.Minute);
+
+        Console.WriteLine("\nProperty verification:");
+        Console.WriteLine("new Time(23, 45).Minute = " + new Time(23, 45).Minute + " (should be 45)");
+        Console.WriteLine("new Time(23, 45).Hour = " + new Time(23, 45).Hour + " (should be 23)");
+
+        Console.WriteLine("\n=== Demonstrating Time(int) constructor ===");
+        Time timeFromMinutes1 = new Time(90);    // 90 minutes = 1:30
+        Time timeFromMinutes2 = new Time(150);   // 150 minutes = 2:30
+        Console.WriteLine("new Time(90): " + timeFromMinutes1 + " (90 minutes = 1:30)");
+        Console.WriteLine("new Time(150): " + timeFromMinutes2 + " (150 minutes = 2:30)");
+
+        Console.WriteLine("\n=== Demonstrating overloaded operators ===");
+
+        Console.WriteLine("Addition (+) operator:");
+        Time sum1 = time1 + time2;  // 10:05 + 00:45
+        Time sum2 = timeFromMinutes1 + timeFromMinutes2;  // 1:30 + 2:30
+        Console.WriteLine(time1 + " + " + time2 + " = " + sum1);
+        Console.WriteLine(timeFromMinutes1 + " + " + timeFromMinutes2 + " = " + sum2);
+
+        Console.WriteLine("\nSubtraction (-) operator:");
+        Time diff1 = time3 - time1;  // 14:30 - 10:05
+        Time diff2 = time4 - time2;  // 23:59 - 00:45
+        Console.WriteLine(time3 + " - " + time1 + " = " + diff1);
+        Console.WriteLine(time4 + " - " + time2 + " = " + diff2);
+
+        Console.WriteLine("\nMore complex operations:");
+        Time complexResult = (time1 + time2) - timeFromMinutes1;
+        Console.WriteLine("(" + time1 + " + " + time2 + ") - " + timeFromMinutes1 + " = " + complexResult);
+
+        Console.WriteLine("\n=== Demonstrating struct behavior ===");
+        Time originalTime = new Time(12, 0);
+        Time copiedTime = originalTime;
+
+        Console.WriteLine("Original time: " + originalTime);
+        Console.WriteLine("Copied time: " + copiedTime);
+        Console.WriteLine("Both show the same value because structs are copied by value.");
+
+        Console.WriteLine("\nPress any key to exit...");
+        Console.ReadKey();
+    }
+}
