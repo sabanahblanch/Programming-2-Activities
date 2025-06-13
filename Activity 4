@@ -1,0 +1,50 @@
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("=== TestTime Program ===");
+        Console.WriteLine("Demonstrating Time struct with Hour and Minute properties\n");
+
+        Console.WriteLine("Declaring variables of type Time:");
+        Console.WriteLine("Time time1 = new Time(10, 5);   // 10:05 AM");
+        Console.WriteLine("Time time2 = new Time(0, 45);   // 00:45 (12:45 AM)");
+        Console.WriteLine("Time time3 = new Time(14, 30);  // 14:30 (2:30 PM)");
+        Console.WriteLine("Time time4 = new Time(23, 59);  // 23:59 (11:59 PM)");
+        Console.WriteLine("Time time5 = new Time(23, 45);  // 23:45 (11:45 PM)");
+        Console.WriteLine();
+
+        Time time1 = new Time(10, 5);   // 10:05 AM
+        Time time2 = new Time(0, 45);   // 00:45 (12:45 AM)
+        Time time3 = new Time(14, 30);  // 14:30 (2:30 PM)
+        Time time4 = new Time(23, 59);  // 23:59 (11:59 PM)
+        Time time5 = new Time(23, 45);  // 23:45 (11:45 PM) - Example from requirements
+
+        Console.WriteLine("Time values displayed in hh:mm format:");
+        Console.WriteLine("time1: " + time1);
+        Console.WriteLine("time2: " + time2);
+        Console.WriteLine("time3: " + time3);
+        Console.WriteLine("time4: " + time4);
+        Console.WriteLine("time5: " + time5);
+
+        Console.WriteLine("\nDemonstrating Hour and Minute properties:");
+        Console.WriteLine("time5 (23:45) - Hour: " + time5.Hour + ", Minute: " + time5.Minute);
+        Console.WriteLine("time1 (10:05) - Hour: " + time1.Hour + ", Minute: " + time1.Minute);
+        Console.WriteLine("time2 (00:45) - Hour: " + time2.Hour + ", Minute: " + time2.Minute);
+
+        Console.WriteLine("\nProperty verification:");
+        Console.WriteLine("new Time(23, 45).Minute = " + new Time(23, 45).Minute + " (should be 45)");
+        Console.WriteLine("new Time(23, 45).Hour = " + new Time(23, 45).Hour + " (should be 23)");
+
+        Console.WriteLine("\n=== Demonstrating struct behavior ===");
+        Time originalTime = new Time(12, 0);
+        Time copiedTime = originalTime;
+
+        Console.WriteLine("Original time: " + originalTime);
+        Console.WriteLine("Copied time: " + copiedTime);
+        Console.WriteLine("Both show the same value because structs are copied by value.");
+
+        Console.WriteLine("\nPress any key to exit...");
+        Console.ReadKey();
+    }
+
+}
